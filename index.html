@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Interactive rating component</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      body {
+        background-color: #1e1e1e;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .principal {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 35%;
+        background-color: #181e27;
+        border-radius: 1em;
+        min-width: 450px;
+      }
+      .cajascontenido {
+        padding: 0.2em 4em;
+        width: 100%;
+      }
+      .imagenestrella {
+        margin-left: 3.5em;
+      }
+      .imagenestrella img {
+        padding: 1em 1em;
+        background-color: #262e38;
+        border-radius: 10em;
+      }
+      h1.titulo {
+        font-weight: 700;
+        color: white;
+      }
+
+      p {
+        color: #969fad;
+        font-size: 1.2em;
+      }
+      .listas {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 5em;
+        list-style: none;
+        gap: 1.5em;
+        color: white;
+        margin-left: -2em;
+      }
+      .listas li {
+        background-color: aqua;
+        border-radius: 4.5em;
+        padding: 1em 1.5em;
+        margin-top: 1em;
+        background-color: #262e38;
+        cursor: pointer;
+      }
+      .listas li.active {
+        background-color: white;
+        color: black;
+      }
+      button {
+        margin-top: 3em;
+        margin-bottom: 2em;
+        background-color: #fc7614;
+        color: #181e27;
+        letter-spacing: 0.2em;
+        padding: 1em 3em;
+        border-radius: 4em;
+        width: 100%;
+        font-weight: bold;
+        font-size: 1em;
+        border: none;
+      }
+      button a {
+        list-style: none;
+        text-decoration: none;
+        color: #181e27;
+      }
+      button:hover {
+        cursor: pointer;
+        background-color: white;
+      }
+      li:hover {
+        background-color: #fc7614;
+      }
+      li:active {
+        background-color: white;
+        color: black;
+      }
+      @media (max-width: 450px) {
+        .listas {
+          display: flex;
+          flex-direction: column;
+        }
+
+        img {
+          position: relative;
+          top: 130px;
+          left: 140px;
+        }
+        p {
+          text-align: center;
+          width: 100%;
+          font-size: 1em;
+          padding: 1em 3em;
+        }
+        .titulo {
+          text-align: center;
+          margin-top: 4em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="principal">
+      <div class="cajamain">
+        <figure class="imagenestrella">
+          <img src="./images/icon-star.svg" alt="estrella" />
+        </figure>
+        <div class="cajascontenido">
+          <h1 class="titulo">How did we do?</h1>
+          <p class="parrafo">
+            Please let us know how we did with your support request. All
+            feedback is appreciated to help us improve our offering!
+          </p>
+          <ul class="listas">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+          </ul>
+          <button class="submit">SUBMIT</button>
+        </div>
+      </div>
+    </main>
+    <script>
+      let selectedRating = 0;
+
+      function seleccionarOpcion(rating, element) {
+        selectedRating = rating;
+        const lis = document.querySelectorAll(".listas li");
+        lis.forEach((li) => li.classList.remove("active"));
+        element.classList.add("active");
+      }
+
+      function submitRating() {
+        if (selectedRating > 0) {
+          localStorage.setItem("selectedRating", selectedRating);
+          window.location.href = "thankyou.html";
+        } else {
+          alert("Please select a rating");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const lis = document.querySelectorAll(".listas li");
+        lis.forEach((li) =>
+          li.addEventListener("click", function () {
+            seleccionarOpcion(li.textContent, li);
+          })
+        );
+        document
+          .querySelector("button.submit")
+          .addEventListener("click", submitRating);
+      });
+    </script>
+  </body>
+</html>
